@@ -1,0 +1,297 @@
+body {
+  margin: 0;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 32px;
+}
+
+.date {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checks label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.checks label:hover {
+  background: #f0f0f0;
+}
+
+.checks input {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.checks span {
+  flex: 1;
+}
+
+button {
+  font-family: inherit;
+}
+
+.saveButton,
+.resetButton,
+.deleteButton,
+.todayButton {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.saveButton {
+  margin-top: 28px;
+}
+
+.resetButton {
+  margin-top: 12px;
+  background: #eeeeee;
+  color: #444;
+}
+
+.deleteButton {
+  margin-top: 12px;
+  background: #f7e8e8;
+  color: #9b2c2c;
+}
+
+.todayButton {
+  margin-bottom: 20px;
+  padding: 11px;
+  background: #eeeeee;
+  color: #444;
+  font-size: 14px;
+}
+
+.stats {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statBlock {
+  background: #f7f7f7;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.highlightBlock {
+  border: 1px solid #e5e7eb;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #666;
+}
+
+.statValue {
+  font-size: 22px;
+}
+
+.statSub {
+  font-size: 14px;
+  color: #777;
+}
+
+.historySection {
+  margin-top: 34px;
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.historyHeader h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.historyHeader span {
+  font-size: 12px;
+  color: #888;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.historyRow {
+  width: 100%;
+  border: none;
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns:
+    minmax(95px, 1fr)
+    auto
+    45px;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.historyRow:hover {
+  background: #eeeeee;
+}
+
+.selectedHistoryRow {
+  outline: 2px solid #d1d5db;
+}
+
+.historyDate {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.historyChecks {
+  display: flex;
+  gap: 5px;
+}
+
+.miniCheck {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #dddddd;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.miniCheck.active {
+  background: #d9f1df;
+  color: #256d3a;
+}
+
+.historyScore {
+  text-align: right;
+  font-size: 16px;
+}
+
+.perfectScore {
+  color: #256d3a;
+}
+
+.goodScore {
+  color: #8a6514;
+}
+
+.lowScore {
+  color: #9b2c2c;
+}
+
+.emptyHistory {
+  padding: 18px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  color: #777;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .app {
+    padding: 16px 10px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .checks label {
+    font-size: 17px;
+  }
+
+  .historyRow {
+    grid-template-columns:
+      minmax(80px, 1fr)
+      auto
+      40px;
+    padding: 11px 10px;
+    gap: 8px;
+  }
+
+  .miniCheck {
+    width: 21px;
+    height: 21px;
+    font-size: 13px;
+  }
+
+  .historyHeader span {
+    display: none;
+  }
+}
