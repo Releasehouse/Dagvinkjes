@@ -160,7 +160,23 @@ function App() {
     (day) => scoreDay(day) < 3
   )
 
-  const recentHistory = sortedHistory.slice(0, 7)
+  const recentDays = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date()
+
+    date.setHours(12, 0, 0, 0)
+    date.setDate(date.getDate() - index)
+
+    const dateString = date.toISOString().split('T')[0]
+
+    const entry = history.find(
+      (day) => day.date === dateString
+    )
+
+    return {
+      date: dateString,
+      entry,
+    }
+  })
 
   let streak = 0
 
@@ -421,104 +437,128 @@ function App() {
 
           <div className="historyHeader">
             <h2>Laatste 7 dagen</h2>
-            <span>Klik om aan te passen</span>
+            <span>
+              Klik om in te vullen of aan te passen
+            </span>
           </div>
 
-          {recentHistory.length === 0 ? (
-            <p className="emptyHistory">
-              Nog geen dagen opgeslagen.
-            </p>
-          ) : (
-            <div className="historyList">
+          <div className="historyList">
 
-              {recentHistory.map((day) => {
-                const score = scoreDay(day)
+            {recentDays.map(({ date, entry }) => {
+              const score = entry ? scoreDay(entry) : 0
 
-                return (
-                  <button
-                    key={day.date}
-                    className={
-                      selectedDate === day.date
-                        ? 'historyRow selectedHistoryRow'
-                        : 'historyRow'
-                    }
-                    onClick={() =>
-                      setSelectedDate(day.date)
-                    }
-                  >
+              return (
+                <button
+                  key={date}
+                  className={
+                    selectedDate === date
+                      ? 'historyRow selectedHistoryRow'
+                      : 'historyRow'
+                  }
+                  onClick={() =>
+                    setSelectedDate(date)
+                  }
+                >
 
-                    <div className="historyDate">
-                      {formatDateShort(
-                        day.date
-                      )}
-                    </div>
+                  <div className="historyDate">
+                    {formatDateShort(date)}
+                  </div>
 
-                    <div className="historyChecks">
+                  {entry ? (
+                    <>
+                      <div className="historyChecks">
 
-                      <span
+                        <span
+                          className={
+                            entry.noAlcohol
+                              ? 'miniCheck active'
+                              : 'miniCheck'
+                          }
+                          title="Geen drank"
+                        >
+                          ✓
+                        </span>
+
+                        <span
+                          className={
+                            entry.noDrugs
+                              ? 'miniCheck active'
+                              : 'miniCheck'
+                          }
+                          title="Geen drugs"
+                        >
+                          ✓
+                        </span>
+
+                        <span
+                          className={
+                            entry.noSnacks
+                              ? 'miniCheck active'
+                              : 'miniCheck'
+                          }
+                          title="Geen vette tussendoortjes"
+                        >
+                          ✓
+                        </span>
+
+                        <span
+                          className={
+                            entry.exercise
+                              ? 'miniCheck active'
+                              : 'miniCheck'
+                          }
+                          title="30+ minuten bewegen"
+                        >
+                          ✓
+                        </span>
+
+                      </div>
+
+                      <strong
                         className={
-                          day.noAlcohol
-                            ? 'miniCheck active'
-                            : 'miniCheck'
+                          score === 4
+                            ? 'historyScore perfectScore'
+                            : score >= 3
+                            ? 'historyScore goodScore'
+                            : 'historyScore lowScore'
                         }
-                        title="Geen drank"
                       >
-                        ✓
+                        {score}/4
+                      </strong>
+                    </>
+                  ) : (
+                    <>
+                      <div className="historyChecks emptyChecks">
+
+                        <span className="miniCheck">
+                          ✓
+                        </span>
+
+                        <span className="miniCheck">
+                          ✓
+                        </span>
+
+                        <span className="miniCheck">
+                          ✓
+                        </span>
+
+                        <span className="miniCheck">
+                          ✓
+                        </span>
+
+                      </div>
+
+                      <span className="notFilled">
+                        Niet ingevuld
                       </span>
+                    </>
+                  )}
 
-                      <span
-                        className={
-                          day.noDrugs
-                            ? 'miniCheck active'
-                            : 'miniCheck'
-                        }
-                        title="Geen drugs"
-                      >
-                        ✓
-                      </span>
+                </button>
+              )
+            })}
 
-                      <span
-                        className={
-                          day.noSnacks
-                            ? 'miniCheck active'
-                            : 'miniCheck'
-                        }
-                        title="Geen vette tussendoortjes"
-                      >
-                        ✓
-                      </span>
-
-                      <span
-                        className={
-                          day.exercise
-                            ? 'miniCheck active'
-                            : 'miniCheck'
-                        }
-                        title="30+ minuten bewegen"
-                      >
-                        ✓
-                      </span>
-
-                    </div>
-
-                    <strong
-                      className={
-                        score === 4
-                          ? 'historyScore perfectScore'
-                          : score >= 3
-                          ? 'historyScore goodScore'
-                          : 'historyScore lowScore'
-                      }
-                    >
-                      {score}/4
-                    </strong>
-
-                  </button>
-                )
-              })}
-
-            </div>
-          )}
+          </div>
 
         </div>
 
